@@ -9,6 +9,6 @@ mongoose
   .then(() => console.log("DB connected successfully"))
   .catch((err) => console.log(err));
 
-const server = httpServer.listen(config.port,()=>{
-    console.log(`Server is running on port ${config.port}`);
-})  
+const server = httpServer.listen(config.port, () => {
+  console.log(`Server is running on port ${config.port}`);
+});
