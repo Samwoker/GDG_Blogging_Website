@@ -17,3 +17,10 @@ exports.login = async (body) => {
   }
   return user;
 };
+exports.getById = async (id) => {
+  const user = await User.findById(id);
+  if (!user) {
+    throw new CustomError(status.NOT_FOUND, "User not found");
+  }
+  return user;
+};
