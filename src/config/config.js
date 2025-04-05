@@ -9,4 +9,5 @@ if (error) {
 module.exports = {
   port: envVars.PORT,
   dbConnection: envVars.DB_CONNECTION,
+  jwtSecret: envVars.JWT_SECRET,
 };
