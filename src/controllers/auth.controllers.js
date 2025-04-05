@@ -12,3 +12,8 @@ exports.register = catchAsync(async (req, res) => {
   const token = await tokenService.generateToken(user._id);
   res.status(status.CREATED).json({ user, token });
 });
+exports.login = catchAsync(async (req, res) => {
+  const user = await userService.login(req.body);
+  const token = await tokenService.generateToken(user._id);
+  res.status(status.OK).json({ user, token });
+});

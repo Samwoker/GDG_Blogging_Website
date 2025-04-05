@@ -8,3 +8,9 @@ exports.createUserSchema = {
         password:joi.string().trim().custom(password).min(8).required(),
     })
 }
+exports.loginSchema = {
+    body:joi.object().keys({
+        email:joi.string().email().trim().lowercase().required(),
+        password:joi.string().trim().min(8).required(),
+    })
+}

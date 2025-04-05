@@ -9,3 +9,11 @@ exports.register = async (body) => {
   const user = await User.create(body);
   return user;
 };
+exports.login = async (body) => {
+  const { password, email } = body;
+  const user = await User.findOne({ email });
+  if (!(await User.isPasswordMatch(password)) && !user) {
+    throw new CustomError(status.NOT_FOUND, "Not Found");
+  }
+  return user;
+};
