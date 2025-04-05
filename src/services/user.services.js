@@ -1,3 +1,4 @@
+const { resetPassword } = require("../controllers/auth.controllers");
 const User = require("./../models/user.model");
 const CustomError = require("./../utils/customError");
 const { status } = require("http-status");
@@ -19,6 +20,23 @@ exports.login = async (body) => {
 };
 exports.getById = async (id) => {
   const user = await User.findById(id);
+  if (!user) {
+    throw new CustomError(status.NOT_FOUND, "User not found");
+  }
+  return user;
+};
+exports.getByEmail = async (email) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError(status.NOT_FOUND, "User not found");
+  }
+  return user;
+};
+exports.findUser = async (token) => {
+  const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
   if (!user) {
     throw new CustomError(status.NOT_FOUND, "User not found");
   }

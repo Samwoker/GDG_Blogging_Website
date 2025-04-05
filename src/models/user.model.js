@@ -1,41 +1,47 @@
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 
-const userSchema = mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    minLength: 3,
-    maxLength: 50,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Email is invalid");
-      }
+const userSchema = mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: 3,
+      maxLength: 50,
     },
-  },
-  password: {
-    type: String,
-    required: true,
-    minLength: 8,
-    trim: true,
-    validate(value) {
-      if (!validator.isStrongPassword(value)) {
-        throw new Error(
-          "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
-        );
-      }
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is invalid");
+        }
+      },
     },
+    password: {
+      type: String,
+      required: true,
+      minLength: 8,
+      trim: true,
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error(
+            "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+          );
+        }
+      },
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
-});
+  { timestamps: true }
+);
 
 userSchema.pre("save", async function (next) {
   const user = this;
@@ -53,6 +59,17 @@ userSchema.statics.isEmailTaken = async function (email) {
 userSchema.methods.isPasswordMatch = async function (password) {
   const user = this;
   return await bcrypt.compare(password, user.password);
+};
+
+userSchema.methods.createResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  const encryptedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordToken = encryptedToken;
+  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
+  return resetToken;
 };
 
 const User = mongoose.model("User", userSchema);
