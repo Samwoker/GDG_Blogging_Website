@@ -2,6 +2,8 @@ const catchAsync = require("../utils/catchAsync");
 const { status } = require("http-status");
 const { userService, tokenService } = require("../services");
 const sendMail = require("../utils/sendMail");
+const crypto = require("crypto")
+const bcrypt = require("bcrypt")
 
 exports.register = catchAsync(async (req, res) => {
   const user = await userService.register(req.body);

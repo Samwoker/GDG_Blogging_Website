@@ -13,13 +13,13 @@ exports.register = async (body) => {
 exports.login = async (body) => {
   const { password, email } = body;
   const user = await User.findOne({ email });
-  if (!(await User.isPasswordMatch(password)) && !user) {
+  if (!(await user.isPasswordMatch(password)) && !user) {
     throw new CustomError(status.NOT_FOUND, "Not Found");
   }
   return user;
 };
 exports.getById = async (id) => {
-  const user = await User.findById(id);
+  const user = await User.findById({ _id: id });
   if (!user) {
     throw new CustomError(status.NOT_FOUND, "User not found");
   }
