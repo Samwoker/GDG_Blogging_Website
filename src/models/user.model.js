@@ -5,6 +5,11 @@ const crypto = require("crypto");
 
 const userSchema = mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
     username: {
       type: String,
       required: true,
@@ -37,6 +42,24 @@ const userSchema = mongoose.Schema(
         }
       },
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    },
+    profile: {
+      bio: {
+        type: String,
+        trim: true,
+        maxlength: 500
+      },
+      socialLinks: {
+        twitter: String,
+        linkedin: String,
+        github: String
+      }
+    },
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
