@@ -7,12 +7,16 @@ const authRouter = require("./routes/auth.routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const passport = require("passport");
+const morgan = require("./config/morgan");
 
 const {
   googleStrategy,
   serializeUserFunction,
   deserializeUserFunction,
 } = require("./config/passport");
+
+app.use(morgan.successHandler);
+app.use(morgan.errorHandler);
 
 app.use(cors());
 app.use(cookieParser());
