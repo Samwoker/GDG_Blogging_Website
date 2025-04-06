@@ -7,7 +7,6 @@ const userSchema = mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
       trim: true,
       minLength: 3,
       maxLength: 50,
@@ -26,7 +25,6 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
       minLength: 8,
       trim: true,
       validate(value) {
@@ -36,6 +34,15 @@ const userSchema = mongoose.Schema(
           );
         }
       },
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    name: {
+      type: String,
+      trim: true,
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,

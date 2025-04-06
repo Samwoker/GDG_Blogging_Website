@@ -14,4 +14,7 @@ module.exports = {
   userEmail: envVars.USER_EMAIL,
   host: envVars.HOST,
   mailerPort: envVars.MAILER_PORT,
+  googleClientId: envVars.GOOGLE_CLIENT_ID,
+  googleClientSecret: envVars.GOOGLE_CLIENT_SECRET,
+  googleCallbackUrl: envVars.GOOGLE_CALLBACK_URL,
 };
