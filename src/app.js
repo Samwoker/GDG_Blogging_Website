@@ -8,6 +8,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const passport = require("passport");
 const morgan = require("./config/morgan");
+const { xss } = require("express-xss-sanitizer");
+const helmet = require("helmet");
 
 const {
   googleStrategy,
@@ -31,11 +33,13 @@ passport.serializeUser(serializeUserFunction);
 passport.deserializeUser(deserializeUserFunction);
 
 
-// 
+app.use(helmet())
+app.use(xss());
 
 const userRoute = require('./routes/users');
 const postRoute = require('./routes/post');
 const catRoute = require('./routes/category');
+
 
 //auth Routes
 
