@@ -1,13 +1,14 @@
 const jwt = require("jsonwebtoken");
 const dayjs = require("dayjs");
+const config = require("./../config/config");
 
-const generateToken = async (userId) => {
+exports.generateToken = async (userId) => {
   const payload = {
     sub: userId,
     iat: dayjs().unix(),
   };
-  return await jwt.sign(payload, process.env.JWT_SECRET, {
+  return await jwt.sign(payload, config.jwtSecret, {
     expiresIn: 60 * 60 * 60 * 24 * 7,
   });
 };
-module.exports = generateToken;
+

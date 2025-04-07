@@ -2,6 +2,8 @@ const catchAsync = require("../utils/catchAsync");
 const { status } = require("http-status");
 const { userService, tokenService } = require("../services");
 const sendMail = require("../utils/sendMail");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 exports.register = catchAsync(async (req, res) => {
   const user = await userService.register(req.body);
@@ -66,3 +68,14 @@ exports.resetPassword = catchAsync(async (req, res) => {
     message: "Password reset successfully",
   });
 });
+exports.googleLoginCallback = async (req, res) => {
+  try {
+    const user = req.user;
+    const token = await tokenService.generateToken(user._id);
+    res.status(status.OK).json({ message: "Login successful", user, token });
+  } catch (err) {
+    res
+      .status(status.INTERNAL_SERVER_ERROR)
+      .json({ message: "Google login failed", error: err.message });
+  }
+};

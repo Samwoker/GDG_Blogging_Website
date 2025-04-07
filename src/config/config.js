@@ -1,9 +1,10 @@
 require("dotenv").config();
 const { envValidation } = require("../validation");
+const logger = require("./logger");
 
 const { value: envVars, error } = envValidation.envSchema.validate(process.env);
 if (error) {
-  throw new Error(`Config validation error: ${error.message}`);
+  logger.error(error.message);
 }
 
 module.exports = {
@@ -14,4 +15,7 @@ module.exports = {
   userEmail: envVars.USER_EMAIL,
   host: envVars.HOST,
   mailerPort: envVars.MAILER_PORT,
+  googleClientId: envVars.GOOGLE_CLIENT_ID,
+  googleClientSecret: envVars.GOOGLE_CLIENT_SECRET,
+  googleCallbackUrl: envVars.GOOGLE_CALLBACK_URL,
 };
