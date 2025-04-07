@@ -12,7 +12,6 @@ const userSchema = mongoose.Schema(
     },
     username: {
       type: String,
-      required: true,
       trim: true,
       minLength: 3,
       maxLength: 50,
@@ -31,7 +30,6 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
       minLength: 8,
       trim: true,
       validate(value) {
@@ -42,6 +40,7 @@ const userSchema = mongoose.Schema(
         }
       },
     },
+<<<<<<< HEAD:src/models/user.model.js
     role: {
       type: String,
       enum: ['user', 'admin'],
@@ -60,6 +59,17 @@ const userSchema = mongoose.Schema(
       }
     },
 
+=======
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+>>>>>>> 103518734f695756a90de16a3384f6f8163a533e:src/models/user.js
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
