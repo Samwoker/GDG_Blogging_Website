@@ -17,7 +17,12 @@ exports.register = catchAsync(async (req, res) => {
   res.status(status.CREATED).json({ user, token });
 });
 exports.login = catchAsync(async (req, res) => {
-  const user = await userService.login(req.body);
+  const { email, password } = req.body;
+  const user = await userService.login(
+    email,
+    password,
+    req.connection.remoteAddress
+  );
   const token = await tokenService.generateToken(user._id);
   res.cookie("token", token);
   res.status(status.OK).json({ user, token });

@@ -5,6 +5,7 @@ const { authController } = require("../controllers");
 const validate = require("./../middleware/validation");
 const { userValidation } = require("../validation");
 const authenticate = require("../middleware/auth");
+const { authLimiter } = require("./../middleware/authLimiter");
 
 router.post(
   "/register",
@@ -13,6 +14,7 @@ router.post(
 );
 router.post(
   "/login",
+  authLimiter,
   validate(userValidation.loginSchema),
   authController.login
 );
