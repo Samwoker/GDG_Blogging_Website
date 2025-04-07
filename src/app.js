@@ -30,9 +30,25 @@ passport.use(googleStrategy);
 passport.serializeUser(serializeUserFunction);
 passport.deserializeUser(deserializeUserFunction);
 
+
+// 
+
+const userRoute = require('./routes/users');
+const postRoute = require('./routes/post');
+const catRoute = require('./routes/category');
+
 //auth Routes
 
 app.use("/api/auth", authRouter);
+
+
+// routes
+
+app.use("/api/users",userRoute); // we are using our user route here
+app.use("/api/posts",postRoute); // we are using our post route here
+app.use("/api/category",catRoute); // we are using our category route here
+
+
 
 //error handler middleware
 app.use((req, res, next) => {
@@ -40,5 +56,7 @@ app.use((req, res, next) => {
 });
 app.use(errorConvertor);
 app.use(errorHandler);
+
+
 
 module.exports = app;
