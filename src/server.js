@@ -6,7 +6,8 @@ const config = require("./config/config");
 const logger = require("./config/logger");
 
 mongoose
-  .connect(config.dbConnection)
+  .connect(config.dbConnection,{
+    serverSelectionTimeoutMS: 30000,  autoCreate: true,})
   .then(() => logger.info("DB connected successfully"))
   .catch((err) => logger.error(err));
 
