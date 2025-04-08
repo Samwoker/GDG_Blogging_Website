@@ -73,14 +73,8 @@ exports.resetPassword = catchAsync(async (req, res) => {
     message: "Password reset successfully",
   });
 });
-exports.googleLoginCallback = async (req, res) => {
-  try {
+exports.googleLoginCallback =catchAsync (async (req, res) => {
     const user = req.user;
     const token = await tokenService.generateToken(user._id);
     res.status(status.OK).json({ message: "Login successful", user, token });
-  } catch (err) {
-    res
-      .status(status.INTERNAL_SERVER_ERROR)
-      .json({ message: "Google login failed", error: err.message });
-  }
-};
+});
