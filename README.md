@@ -15,6 +15,7 @@ A robust and scalable backend for a modern blogging website built with **Node.js
 ├── .env                          # 🌱 Environment configuration
 ├── .gitattributes                # 🔧 Git attributes
 ├── .gitignore                    # 🙈 Ignore rules for sensitive/dependent files
+├── README.md                     # 📘 Project overview and setup instructions
 ├── package.json                  # 📦 Project metadata and dependencies
 ├── package-lock.json             # 🔒 Dependency tree lockfile
 └── src/                          # 🚀 Source code
