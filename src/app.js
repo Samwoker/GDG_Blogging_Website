@@ -20,7 +20,11 @@ const {
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
 
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json());
 
