@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const mongoose = require('mongoose');
-const post= require('../models/Post');
+const post= require('../models/post');
 
 const bcrypt = require('bcrypt');
 
