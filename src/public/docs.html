@@ -1,198 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Documentation</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #f4f4f4;
-        padding: 20px;
-      }
-      h1,
-      h2 {
-        color: #333;
-      }
-      code {
-        background-color: #f1f1f1;
-        padding: 2px 6px;
-        border-radius: 4px;
-      }
-      pre {
-        background-color: #333;
-        color: white;
-        padding: 10px;
-        border-radius: 4px;
-      }
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-      }
-      li {
-        padding: 8px;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Documentation</title>
+  <style>
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #6366f1;
+      --background-color: #f9fafb;
+      --card-background: #ffffff;
+      --text-color: #1f2937;
+      --code-background: #111827;
+    }
 
-  <body>
-    <header>
-      <h1>Welcome to the API Documentation</h1>
-      <p>
-        Here you can find all the available API endpoints for your application.
-      </p>
-    </header>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <main>
-        <h1>Base URL</h1>
-        <h2>https://gdg-blogging-website.onrender.com</h2>
-        
-      <section id="auth-endpoints">
-        <h2>Authentication Endpoints</h2>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 40px 20px;
+    }
 
-        <!-- Register Endpoint -->
-        <div class="endpoint">
-          <h3>POST /api/auth/register</h3>
-          <p>Registers a new user.</p>
-          <h4>Request Body:</h4>
-          <pre>
-    {
-      "username": "string",  <!-- Required -->
-      "email": "string",     <!-- Required -->
-      "password": "string"   <!-- Required -->
+    header {
+      text-align: center;
+      margin-bottom: 40px;
     }
-            </pre>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "user": {
-        "_id": "user_id",
-        "username": "string",
-        "email": "string",
-        "password": "hashed_password",
-        "role": "user",
-        "createdAt": "timestamp",
-        "updatedAt": "timestamp",
-        "__v": 0
-      },
-      "token": "jwt_token"
-    }
-            </pre
-          >
-        </div>
 
-        <!-- Login Endpoint -->
-        <div class="endpoint">
-          <h3>POST /api/auth/login</h3>
-          <p>Logs in an existing user and returns a JWT token.</p>
-          <h4>Request Body:</h4>
-          <pre>
-    {
-      "email": "string",     <!-- Required -->
-      "password": "string"   <!-- Required -->
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.8rem;
+      margin-bottom: 10px;
     }
-            </pre>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "user": {
-        "_id": "user_id",
-        "username": "string",
-        "email": "string",
-        "password": "hashed_password",
-        "role": "user",
-        "createdAt": "timestamp",
-        "updatedAt": "timestamp",
-        "__v": 0
-      },
-      "token": "jwt_token"
-    }
-            </pre
-          >
-        </div>
 
-        <!-- Logout Endpoint -->
-        <div class="endpoint">
-          <h3>POST /api/auth/logout</h3>
-          <p>
-            Logs out the user by clearing the session or invalidating the token.
-          </p>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "message": "Logged out successfully"
+    p {
+      font-size: 1.2rem;
+      color: #6b7280;
     }
-            </pre
-          >
-        </div>
 
-        <!-- Password Reset Request Endpoint -->
-        <div class="endpoint">
-          <h3>POST /api/auth/reset-password/request</h3>
-          <p>Requests a password reset for a user by sending a reset email.</p>
-          <h4>Request Body:</h4>
-          <pre>
-    {
-      "email": "string"  <!-- Required -->
+    section {
+      max-width: 1000px;
+      margin: auto;
     }
-            </pre>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "message": "Password reset link sent"
-    }
-            </pre
-          >
-        </div>
 
-        <!-- Password Reset Token Endpoint -->
-        <div class="endpoint">
-          <h3>POST /api/auth/reset-password/:token</h3>
-          <p>Resets the user's password using the reset token.</p>
-          <h4>Request Body:</h4>
-          <pre>
-    {
-      "newPassword": "string"  <!-- Required -->
+    .endpoint {
+      background-color: var(--card-background);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
     }
-            </pre>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "message": "Password has been reset successfully"
-    }
-            </pre
-          >
-        </div>
 
-        <!-- Google Authentication Routes -->
-        <div class="endpoint">
-          <h3>GET /api/auth/google</h3>
-          <p>Redirects to Google for authentication.</p>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "message": "Redirecting to Google for authentication"
+    .endpoint:hover {
+      transform: translateY(-5px);
     }
-            </pre
-          >
-        </div>
 
-        <div class="endpoint">
-          <h3>GET /api/auth/google/callback</h3>
-          <p>Handles the callback from Google and completes authentication.</p>
-          <h4>Response:</h4>
-          <pre>
-    {
-      "message": "Authentication successful, user logged in"
+    h2 {
+      color: var(--secondary-color);
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
-            </pre
-          >
-        </div>
-      </section>
-    </main>
-  </body>
+
+    h3 {
+      margin-top: 10px;
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #374151;
+    }
+
+    pre {
+      background: var(--code-background);
+      color: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+    }
+
+    code {
+      background-color: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .base-url {
+      background: var(--code-background);
+      color: #93c5fd;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>API Documentation</h1>
+    <p>Comprehensive reference for all your API endpoints.</p>
+  </header>
+
+  <section>
+    <div class="base-url">
+      Base URL: https://gdg-blogging-website.onrender.com
+    </div>
+
+    <h2>Authentication Endpoints</h2>
+
+    <!-- Register -->
+    <div class="endpoint">
+      <h3>POST /api/auth/register</h3>
+      <p>Registers a new user.</p>
+      <h4>Request Body:</h4>
+      <pre>{
+  "username": "string",
+  "email": "string",
+  "password": "string"
+}</pre>
+      <h4>Response:</h4>
+      <pre>{
+  "user": {
+    "_id": "user_id",
+    "username": "string",
+    "email": "string",
+    "password": "hashed_password",
+    "role": "user",
+    "createdAt": "timestamp",
+    "updatedAt": "timestamp",
+    "__v": 0
+  },
+  "token": "jwt_token"
+}</pre>
+    </div>
+
+    <!-- Login -->
+    <div class="endpoint">
+      <h3>POST /api/auth/login</h3>
+      <p>Logs in an existing user and returns a JWT token.</p>
+      <h4>Request Body:</h4>
+      <pre>{
+  "email": "string",
+  "password": "string"
+}</pre>
+      <h4>Response:</h4>
+      <pre>{
+  "user": {
+    "_id": "user_id",
+    "username": "string",
+    "email": "string",
+    "password": "hashed_password",
+    "role": "user",
+    "createdAt": "timestamp",
+    "updatedAt": "timestamp",
+    "__v": 0
+  },
+  "token": "jwt_token"
+}</pre>
+    </div>
+
+    <!-- Logout -->
+    <div class="endpoint">
+      <h3>POST /api/auth/logout</h3>
+      <p>Logs out the user by clearing the session or invalidating the token.</p>
+      <h4>Response:</h4>
+      <pre>{
+  "message": "Logged out successfully"
+}</pre>
+    </div>
+
+    <!-- Password Reset Request -->
+    <div class="endpoint">
+      <h3>POST /api/auth/reset-password/request</h3>
+      <p>Requests a password reset for a user by sending a reset email.</p>
+      <h4>Request Body:</h4>
+      <pre>{
+  "email": "string"
+}</pre>
+      <h4>Response:</h4>
+      <pre>{
+  "message": "Password reset link sent"
+}</pre>
+    </div>
+
+    <!-- Password Reset Token -->
+    <div class="endpoint">
+      <h3>POST /api/auth/reset-password/:token</h3>
+      <p>Resets the user's password using the reset token.</p>
+      <h4>Request Body:</h4>
+      <pre>{
+  "newPassword": "string"
+}</pre>
+      <h4>Response:</h4>
+      <pre>{
+  "message": "Password has been reset successfully"
+}</pre>
+    </div>
+
+    <!-- Google Authentication -->
+    <div class="endpoint">
+      <h3>GET /api/auth/google</h3>
+      <p>Redirects to Google for authentication.</p>
+      <h4>Response:</h4>
+      <pre>{
+  "message": "Redirecting to Google for authentication"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <h3>GET /api/auth/google/callback</h3>
+      <p>Handles the callback from Google and completes authentication.</p>
+      <h4>Response:</h4>
+      <pre>{
+  "message": "Authentication successful, user logged in"
+}</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Category API</h2>
+
+    <div class="endpoint">
+      <h3><span class="badge">POST</span> /api/category</h3>
+      <p><strong>Description:</strong> Create a new category.</p>
+      <p><strong>Request Body:</strong></p>
+      <pre>{
+  "name": "Category Name",
+  "description": "Optional description"
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - Created category object.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+
+    <div class="endpoint">
+      <h3><span class="badge">GET</span> /api/category</h3>
+      <p><strong>Description:</strong> Retrieve all categories.</p>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - Array of categories.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Post API</h2>
+
+    <div class="endpoint">
+      <h3><span class="badge">POST</span> /api/posts</h3>
+      <p><strong>Description:</strong> Create a new post.</p>
+      <p><strong>Request Body:</strong></p>
+      <pre>{
+  "title": "Post Title",
+  "description": "Post description",
+  "username": "AuthorUsername",
+  "categories": ["Category1", "Category2"]
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>201 Created</strong> - Created post object.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+
+    <div class="endpoint">
+      <h3><span class="badge">PUT</span> /api/posts/:id</h3>
+      <p><strong>Description:</strong> Update a post (owner only).</p>
+      <p><strong>Request Params:</strong> <code>:id</code> (Post ID)</p>
+      <p><strong>Request Body:</strong></p>
+      <pre>{
+  "username": "AuthorUsername",
+  "title": "Updated Title",
+  "description": "Updated description"
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - Updated post object.</li>
+        <li><strong>400 Bad Request</strong> - Unauthorized.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+
+    <div class="endpoint">
+      <h3><span class="badge">DELETE</span> /api/posts/:id</h3>
+      <p><strong>Description:</strong> Delete a post (owner only).</p>
+      <p><strong>Request Params:</strong> <code>:id</code> (Post ID)</p>
+      <p><strong>Request Body:</strong></p>
+      <pre>{
+  "username": "AuthorUsername"
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - Post deleted.</li>
+        <li><strong>400 Bad Request</strong> - Unauthorized.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+
+    <div class="endpoint">
+      <h3><span class="badge">GET</span> /api/posts</h3>
+      <p><strong>Description:</strong> Retrieve all posts (filter by username or category).</p>
+      <p><strong>Query Parameters:</strong></p>
+      <ul>
+        <li><code>user</code> (optional) — Filter by username.</li>
+        <li><code>cat</code> (optional) — Filter by category.</li>
+      </ul>
+      <p><strong>Example:</strong> <code>/api/posts?user=John</code> or <code>/api/posts?cat=Music</code></p>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - List of posts.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Profile API</h2>
+
+    <div class="endpoint">
+      <h3><span class="badge">GET</span> /api/profile/me</h3>
+      <p><strong>Description:</strong> Fetch current user's profile.</p>
+      <p><strong>Headers:</strong></p>
+      <pre>{
+  "Authorization": "Bearer <token>"
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - User profile object.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+      <p><strong>Example Response:</strong></p>
+      <pre>{
+  "_id": "userId",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "profile": {
+    "bio": "Developer | Music Lover",
+    "socialLinks": {
+      "facebook": "https://facebook.com/johndoe",
+      "twitter": "https://twitter.com/johndoe"
+    }
+  }
+}</pre>
+    </div>
+
+    <div class="endpoint">
+      <h3><span class="badge">PATCH</span> /api/profile/me</h3>
+      <p><strong>Description:</strong> Update current user's profile.</p>
+      <p><strong>Headers:</strong></p>
+      <pre>{
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}</pre>
+      <p><strong>Request Body:</strong></p>
+      <pre>{
+  "name": "New Name",
+  "email": "newemail@example.com",
+  "profile": {
+    "bio": "Updated Bio",
+    "socialLinks": {
+      "facebook": "https://facebook.com/newprofile",
+      "twitter": "https://twitter.com/newprofile"
+    }
+  }
+}</pre>
+      <p><strong>Responses:</strong></p>
+      <ul>
+        <li><strong>200 OK</strong> - Updated user profile.</li>
+        <li><strong>400 Bad Request</strong> - Validation error.</li>
+        <li><strong>500 Internal Server Error</strong> - Server error.</li>
+      </ul>
+    </div>
+  </section>
+</body>
 </html>
