@@ -33,9 +33,7 @@ app.use(express.json());
 
 app.use(passport.initialize());
 
-app.get("/api/docs", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'docs.html')); // Adjust path if docs.html is in a different folder
-});
+
 
 passport.use(googleStrategy);
 passport.serializeUser(serializeUserFunction);
@@ -60,8 +58,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/users",userRoute); // we are using our user route here
 app.use("/api/posts",postRoute); // we are using our post route here
 app.use("/api/category",catRoute); // we are using our category route here
-app.use("/",(req,res)=>{
-  res.send("Welcome to the GDG Blogging Website!");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'docs.html')); // Adjust path if docs.html is in a different folder
 });
 
 
