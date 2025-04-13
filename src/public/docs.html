@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      code {
+        background-color: #f1f1f1;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      pre {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      li {
+        padding: 8px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome to the API Documentation</h1>
+      <p>
+        Here you can find all the available API endpoints for your application.
+      </p>
+    </header>
+
+    <main>
+      <section id="auth-endpoints">
+        <h2>Authentication Endpoints</h2>
+
+        <!-- Register Endpoint -->
+        <div class="endpoint">
+          <h3>POST /api/auth/register</h3>
+          <p>Registers a new user.</p>
+          <h4>Request Body:</h4>
+          <pre>
+    {
+      "username": "string",  <!-- Required -->
+      "email": "string",     <!-- Required -->
+      "password": "string"   <!-- Required -->
+    }
+            </pre>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "user": {
+        "_id": "user_id",
+        "username": "string",
+        "email": "string",
+        "password": "hashed_password",
+        "role": "user",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp",
+        "__v": 0
+      },
+      "token": "jwt_token"
+    }
+            </pre
+          >
+        </div>
+
+        <!-- Login Endpoint -->
+        <div class="endpoint">
+          <h3>POST /api/auth/login</h3>
+          <p>Logs in an existing user and returns a JWT token.</p>
+          <h4>Request Body:</h4>
+          <pre>
+    {
+      "email": "string",     <!-- Required -->
+      "password": "string"   <!-- Required -->
+    }
+            </pre>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "user": {
+        "_id": "user_id",
+        "username": "string",
+        "email": "string",
+        "password": "hashed_password",
+        "role": "user",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp",
+        "__v": 0
+      },
+      "token": "jwt_token"
+    }
+            </pre
+          >
+        </div>
+
+        <!-- Logout Endpoint -->
+        <div class="endpoint">
+          <h3>POST /api/auth/logout</h3>
+          <p>
+            Logs out the user by clearing the session or invalidating the token.
+          </p>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "message": "Logged out successfully"
+    }
+            </pre
+          >
+        </div>
+
+        <!-- Password Reset Request Endpoint -->
+        <div class="endpoint">
+          <h3>POST /api/auth/reset-password/request</h3>
+          <p>Requests a password reset for a user by sending a reset email.</p>
+          <h4>Request Body:</h4>
+          <pre>
+    {
+      "email": "string"  <!-- Required -->
+    }
+            </pre>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "message": "Password reset link sent"
+    }
+            </pre
+          >
+        </div>
+
+        <!-- Password Reset Token Endpoint -->
+        <div class="endpoint">
+          <h3>POST /api/auth/reset-password/:token</h3>
+          <p>Resets the user's password using the reset token.</p>
+          <h4>Request Body:</h4>
+          <pre>
+    {
+      "newPassword": "string"  <!-- Required -->
+    }
+            </pre>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "message": "Password has been reset successfully"
+    }
+            </pre
+          >
+        </div>
+
+        <!-- Google Authentication Routes -->
+        <div class="endpoint">
+          <h3>GET /api/auth/google</h3>
+          <p>Redirects to Google for authentication.</p>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "message": "Redirecting to Google for authentication"
+    }
+            </pre
+          >
+        </div>
+
+        <div class="endpoint">
+          <h3>GET /api/auth/google/callback</h3>
+          <p>Handles the callback from Google and completes authentication.</p>
+          <h4>Response:</h4>
+          <pre>
+    {
+      "message": "Authentication successful, user logged in"
+    }
+            </pre
+          >
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

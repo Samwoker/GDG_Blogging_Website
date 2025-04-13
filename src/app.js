@@ -10,6 +10,7 @@ const passport = require("passport");
 const morgan = require("./config/morgan");
 const { xss } = require("express-xss-sanitizer");
 const helmet = require("helmet");
+const path = require("path"); 
 
 const {
   googleStrategy,
@@ -31,6 +32,10 @@ app.use(express.json());
 //initialize passport
 
 app.use(passport.initialize());
+
+app.get("/api/docs", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'docs.html')); // Adjust path if docs.html is in a different folder
+});
 
 passport.use(googleStrategy);
 passport.serializeUser(serializeUserFunction);
