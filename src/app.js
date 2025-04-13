@@ -38,7 +38,7 @@ app.use(xss());
 
 const userRoute = require('./routes/users');
 const postRoute = require('./routes/post');
-const catRoute = require('./routes/category');
+const catRoute = require('./routes/catagory');
 
 
 //auth Routes
