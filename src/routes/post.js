@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Post = require('../models/Post'); // import post model
+const User = require('../models/user');
+const Post = require('../models/post'); // import post model
 const mongoose = require('mongoose');
  
 // create new post
