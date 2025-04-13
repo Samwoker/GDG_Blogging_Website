@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Category = require('../models/Category');
+const Category = require('../models/category');
 
 router.post('/', async (req, res) => {
     const newCat = new Category(req.body);
