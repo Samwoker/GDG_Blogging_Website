@@ -13,7 +13,7 @@ mongoose
   .catch((err) => logger.error(err));
 
 app.use('/api/profile', profileRoutes);
-const server = httpServer.listen(config.port, () => {
+const server = httpServer.listen(config.port,'0.0.0.0', () => {
   logger.info(`Server is running on port ${config.port}`);
 });
 
