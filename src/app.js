@@ -55,6 +55,9 @@ app.use("/api/auth", authRouter);
 app.use("/api/users",userRoute); // we are using our user route here
 app.use("/api/posts",postRoute); // we are using our post route here
 app.use("/api/category",catRoute); // we are using our category route here
+app.use("/"(req,res)=>{
+  res.send("Welcome to the GDG Blogging Website!");
+});
 
 
 
