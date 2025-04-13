@@ -1,4 +1,4 @@
-const User = require("./../models/user");
+const User = require("../models/user");
 const CustomError = require("./../utils/customError");
 const { status } = require("http-status");
 const { RateLimiterMongo } = require("rate-limiter-flexible");
